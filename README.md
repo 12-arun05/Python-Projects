@@ -1,6 +1,3 @@
-Here’s a simplified **README.md** template with a general overview for your Python projects repository:
-
-```markdown
 # Python Projects Repository
 
 Welcome to my Python projects repository! This repo contains a collection of various Python projects that showcase different programming concepts, data manipulation, automation, and more.
@@ -46,7 +43,7 @@ This project is licensed under the MIT License.
 ---
 
 Feel free to explore, contribute, or open issues for any of the projects!
-```
+
 
 ### How to Use:
 - Replace `yourusername` with your GitHub username in the clone URL.

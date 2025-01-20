@@ -36,10 +36,6 @@ Each project has its own folder with a script to execute, along with any necessa
    python project_name.py
    ```
 
-## License
-
-This project is licensed under the MIT License.
-
 ---
 
 Feel free to explore, contribute, or open issues for any of the projects!

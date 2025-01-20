@@ -1,1 +1,25 @@
+from bs4 import BeautifulSoup
+import openpyxl, requests
 
+excel = openpyxl.Workbook()
+sheet = excel.active
+sheet.append(['Team-1', 'Team-1 Score','Team-2','Team-2 Score','Result','Location'])
+
+try:
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+    response = requests.get("https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results",headers=headers)
+    soup = BeautifulSoup(response.text,'html.parser')
+    crickets = soup.find('div',class_="ds-w-full ds-bg-fill-content-prime ds-overflow-hidden ds-rounded-xl ds-border ds-border-line").find_all('div',class_="ds-p-4")
+    for cricket in crickets:
+        team1 = cricket.find('div',class_="ci-team-score ds-flex ds-justify-between ds-items-center ds-text-typo ds-opacity-50 ds-my-1").text.split('1')[0]
+        team1_score = cricket.find('div',class_="ds-text-compact-s ds-text-typo ds-text-right ds-whitespace-nowrap").strong.text
+        team2 = cricket.find('div',class_="ci-team-score ds-flex ds-justify-between ds-items-center ds-text-typo ds-my-1").text.split('(')[0]
+        team2_score = cricket.find('div',class_="ds-text-compact-s ds-text-typo ds-text-right ds-whitespace-nowrap").strong.text
+        result = cricket.find('p',class_="ds-text-tight-s ds-font-medium ds-line-clamp-2 ds-text-typo").span.text
+        location = cricket.find('div',class_="ds-text-tight-s ds-font-regular ds-truncate ds-text-typo-mid3").text.split('•')[1].split(',')[0]
+        sheet.append([team1,team1_score,team2,team2_score,result,location])
+
+except Exception as e:
+    print(e)
+
+excel.save("cricket.xlsx")
